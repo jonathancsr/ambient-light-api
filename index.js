@@ -1,26 +1,18 @@
-function update(illuminance) {
-  document.getElementById("value").innerHTML = illuminance + " lux";
+window.addEventListener('devicelight', function(event) {
 
-  var colorPart = Math.min(255, illuminance).toFixed(0);
-  document.getElementById("box").style.backgroundColor =
-    "rgb(" + colorPart + ", " + colorPart + ", " + colorPart + ")";
-}
-
-if ("AmbientLightSensor" in window) {
-  try {
-    var sensor = new AmbientLightSensor();
-    sensor.addEventListener("reading", function (event) {
-      update(sensor.illuminance);
-    });
-    sensor.start();
-  } catch (e) {
-    console.error(e);
-  }
-}
-if ("ondevicelight" in window) {
-  function onUpdateDeviceLight(event) {
-    update(event.value);
+  var bodyBg= document.body.style;
+  
+  //event.value is the lux value returned by the sensor on the device
+  if (event.value < 100) {
+  
+  alert('Hey, you! You are working in a dark environment');
+  
+  bodyBg.backgroundColor="lightgrey";
+  
+  } else {
+  
+  bodyBg.backgroundColor="#fff";
+  
   }
   
-  window.addEventListener("devicelight", onUpdateDeviceLight);
-}
+  });
