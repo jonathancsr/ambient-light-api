@@ -1,18 +1,23 @@
-window.addEventListener('devicelight', function(event) {
+const sensor = new AmbientLightSensor();
+sensor.start(); sensor.addEventListener('activate', () => {
+  console.log('Ready to report readings');
+});
+sensor.addEventListener('error', error => {
+  console.error(error);
+}); 
+sensor.addEventListener('reading', () => {
+  const illuminance = sensor.illuminance;
+});
 
-  var bodyBg= document.body.style;
-  
-  //event.value is the lux value returned by the sensor on the device
-  if (event.value < 100) {
-  
-  alert('Hey, you! You are working in a dark environment');
-  
-  bodyBg.backgroundColor="lightgrey";
-  
-  } else {
-  
-  bodyBg.backgroundColor="#fff";
-  
+sensor.addEventListener('reading', () => {
+  const illuminance = sensor.illuminance;
+  if (illuminance < 20) {
+    html.classList.add('dark');
+  } else if (illluminance > 30) {
+    html.classList.remove('dark');
   }
-  
-  });
+});
+
+if (window.AmbientLightSensor) {
+  alert("suportttt")
+}
