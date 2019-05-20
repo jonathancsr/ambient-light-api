@@ -1,23 +1,13 @@
-const sensor = new AmbientLightSensor();
-sensor.start(); sensor.addEventListener('activate', () => {
-  console.log('Ready to report readings');
-});
-sensor.addEventListener('error', error => {
-  console.error(error);
-}); 
-sensor.addEventListener('reading', () => {
-  const illuminance = sensor.illuminance;
-});
+var battery = navigator.battery || navigator.mozBattery || navigator.webkitBattery;
 
-sensor.addEventListener('reading', () => {
-  const illuminance = sensor.illuminance;
-  if (illuminance < 20) {
-    html.classList.add('dark');
-  } else if (illluminance > 30) {
-    html.classList.remove('dark');
+function updateBatteryStatus() {
+  console.log("Status da bateria: " + battery.level * 100 + " %");
+
+  if (battery.charging) {
+    alert.log("A bateria está carregando"); 
   }
-});
-
-if (window.AmbientLightSensor) {
-  alert("suportttt")
 }
+
+battery.addEventListener("chargingchange", updateBatteryStatus);
+battery.addEventListener("levelchange", updateBatteryStatus);
+updateBatteryStatus();
